@@ -17,18 +17,22 @@ b2 <- c(3, 2, 1)
 B <- matrix(c(b1, b2), nrow = 3, ncol = 2)
 
 C <- t(B) %*% B
+C 
 
 # 3. Calculate the determinant of matrix C, save as 'dt' ####
 
 dt <- det(C)
+dt
 
 # 4. Calculate the inverse of C, save as D ####
 
 D <- solve(C)
+D
 
 # 5. Calculate the trace of D, save as 'tr' ####
 
 tr <- sum(diag(D))
+tr
 
 # 6. Define 'issquare' ####
 
@@ -41,19 +45,19 @@ issquare <- function(M) {
   return(result)
 }
 
-is_square <- function(M) {
-  if (nrow(M) == ncol(M)) {
-    result = "The matrix M is square!"
-  } else {
-    result = paste("The function M is not square! M is a", nrow(M), "X", ncol(M), "matrix!")
-  }
-  return(result)
-}
+# is_square <- function(M) {
+#   if (nrow(M) == ncol(M)) {
+#     result = "The matrix M is square!"
+#   } else {
+#     result = paste("The function M is not square! M is a", nrow(M), "X", ncol(M), "matrix!")
+#   }
+#   return(result)
+# }
 
 issquare(A)
 issquare(B)
-is_square(A)
-is_square(B)
+#is_square(A)
+#is_square(B)
 
 # 7. Create vector 'x'. Create 'y'
 
@@ -84,6 +88,8 @@ while(i <= length(y)) {
 # 9. Compute the derivative, save as 'd'
 
 d <- dy / dx
+d
 
 rm(list = ls())
-source("PA1.R")
+#source("PA1.R")
+
