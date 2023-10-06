@@ -1,3 +1,15 @@
+###############################
+
+# GROUP: MATRIX
+# Member:
+# - Chinh Hoang Duc: 11335127 - hoang.chinh@postgrad.manchester.ac.uk
+# - Sol Yates: 10710007 - solomon.yates@student.manchester.ac.uk
+# - Sicong Liu: 10850471 - email: sicong.liu@postgrad.manchester.ac.uk
+# - Hoi Kwan Cheung: 10704589 - hoikwan.cheung@postgrad.manchester.ac.uk
+# - Orejesu Ojutiku: 11465531 - orejesu.ojutiku@postgrad.manchester.ac.uk
+
+###############################
+
 rm(list = ls())
 
 # setwd("C:\\Users\\kingd\\OneDrive\\D\\DOCUMENTS\\Uni of Man\\Year 0\\ECON 61001 Metrics Method\\Assignments\\R-assignments")
