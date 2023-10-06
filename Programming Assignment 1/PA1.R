@@ -8,7 +8,7 @@
 # - Hoi Kwan Cheung: 10704589 - hoikwan.cheung@postgrad.manchester.ac.uk
 # - Orejesu Ojutiku: 11465531 - orejesu.ojutiku@postgrad.manchester.ac.uk
 
-############################### 
+###############################
 
 rm(list = ls())
 
