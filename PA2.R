@@ -88,7 +88,7 @@ for (i in 1:1000){
 }
 
 
-#### Q12. ####
+#### Q12. #### Confused not sure what is meant
 c <- mean(beta)
 
 
