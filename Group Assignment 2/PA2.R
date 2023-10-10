@@ -22,34 +22,29 @@ w13 <- mean(Data$wage[Data$educ==13])
 alpha1 <-(w13-w12)/w12 *100 
 
 #### Q5. ####
-reg1 <- lm(wage ~ educ, data=Data)
+reg1 <- lm(log(wage) ~ educ, data=Data)
 
-beta0 <- reg1$coefficients[1] #intercept
+beta0 <- reg1$coefficients[[1]] #intercept
 
-beta1 <- reg1$coefficients[2] #slope parameter
-
+beta1 <- reg1$coefficients[[2]] #slope parameter
 
 #### Q6. ####
-Data_New = Data[-row(Data) [Data$educ == 0],]
-
-
+Data_New = Data[-row(Data)[Data$educ == 0],]
 
 #### Q7. ####
 reg2 <- lm(log(wage) ~ log(educ), data = Data_New)
 
-delta0 <-  reg2$coefficients[1]
+delta0 <-  reg2$coefficients[[1]]
 
-delta1 <- reg2$coefficients[2]
-
+delta1 <- reg2$coefficients[[2]]
 
 #### Q8.####
-set.seed(42)
-n=526
-x<-rnorm(n,5,4)
-u = rnorm(n,0,0.5)
-b0 = 1 # Population intercept
-b1 = -3 # Population slope
-
+# set.seed(42)
+# n=526
+# x<-rnorm(n,5,4)
+# u = rnorm(n,0,0.5)
+# b0 = 1 # Population intercept
+# b1 = -3 # Population slope
 
 ols<-function(y,x){
   ones <- rep(1,length(x))
@@ -75,7 +70,6 @@ x <-  Data$educ
 b0 <- beta0 #intercept
 
 b1 <- beta1 #slope parameter
-
 
 #### Q11. ####
 # simulate 1000 new realisations and save the estimated coefficients for all of them
