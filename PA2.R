@@ -117,7 +117,7 @@ var1 <-  var(betahat)
 var2 <-  var(betatilde)
 
 
-#### Q15. ####
+#### Q15. #### This part is incomplete
 eff <-  function(x){
   d1 = dim(x)[1]
   d2 = dim(x)[2]
@@ -127,4 +127,4 @@ eff <-  function(x){
   else disp = "not square"
   
   return(disp)
-}
+} 
