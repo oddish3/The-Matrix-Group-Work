@@ -109,5 +109,5 @@ var2 <-  var(beta_mat3[, 2])
 
 #### Q15. ####
 
-# since var1 (OLS) us smaller than var2 (avg.), OLS is the more efficient estimator
+# since var1 (OLS) is smaller than var2 (avg.), OLS is the more efficient estimator
 eff <- "OLS"
