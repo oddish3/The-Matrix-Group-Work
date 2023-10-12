@@ -134,18 +134,10 @@ for (i in 1:1000){
   betatilde[,i]<- mean(y)/mean(x)
 }
 
-betamatr<- matrix(c(betahat, betatilde), ncol = 2)
-
 
 #### Q14. ####
 var1 <-  var(betahat[2,])
 var2 <-  var(betatilde[2,])
-
-
-# Histogram of betahat and betatilde
-par(mfrow=c(2,2))
-hist(betahat[2,], breaks = 20, xlab = 'b1',main = 'Histogram of betahat')
-hist(betatilde[2,], breaks = 20, xlab = 'b1',main = 'Histogram of betatilde')
 
 #### Q15. ####
 eff <-"OLS"
