@@ -43,27 +43,27 @@ delta1 <- reg2$coefficients[[2]]
 # Let the regressor be: y = 15 + 2*x + e
 
 set.seed(123)
-n = 500
+n = 526
 x <- rnorm(n, 5, 4)
-sim_b0 = 15 # Population intercept
-sim_b1 = 2 # Population slope
+sim_b0 = 1 # Population intercept
+sim_b1 = -3 # Population slope
 
 ols <- function(y, x) {
   reg <- lm(y ~ x)
   coef0 <- reg$coefficients[[1]]
   coef1 <- reg$coefficients[[2]]
-  coef <- as.matrix(c(coef0, coef1), ncol = 2)
+  coef <- as.matrix(c(coef0, coef1), nrow = 2)
   return(coef)
 }
 
 # Computing 1000 realisations of OLS coefficients
-beta_mat1 <- matrix(0, ncol = 2, 1000)
+beta_mat1 <- matrix(0, nrow = 2, 1000)
 
 for (i in 1:1000) {
   set.seed(i)
   u = rnorm(n, 0, 0.5)
   y = sim_b0 + sim_b1*x + u
-  beta_mat1[i, ] <- ols(y, x)
+  beta_mat1[, i] <- ols(y, x)
 }
 
 #### Q9. ####
@@ -76,36 +76,36 @@ b1 <- beta1 #slope parameter
 
 #### Q11. ####
 # simulate 1000 new realisations and save the estimated coefficients for all of them
-beta_mat2 <- matrix(0, ncol = 2, 1000)
+beta_mat2 <- matrix(0, nrow = 2, 1000)
 
 for (i in 1:1000) {
   set.seed(i)
   u = rnorm(526, 0, 10)
   y = b0 + b1*x + u
-  beta_mat2[i, ] <- ols(y, x)
+  beta_mat2[, i] <- ols(y, x)
 }
 
 
 #### Q12. ####
-c <- c(mean(beta_mat2[, 1]), mean(beta_mat2[, 2]))
+c <- c(mean(beta_mat2[1, ]), mean(beta_mat2[2, ]))
 
 #### Q13. ####
 
-beta_mat3 <- matrix(0, ncol = 2, 1000)
+beta_mat3 <- matrix(0, nrow = 2, 1000)
 
 for (i in 1:1000) {
   set.seed(i)
   sim_u = rnorm(1000, 0, 10)
   sim_x = rnorm(1000, 5, 10)
   sim_y = sim_x + sim_u
-  beta_hat <- (t(as.matrix(sim_x)) %*% as.matrix(sim_y))/(t(as.matrix(sim_x)) %*% as.matrix(sim_x))
+  beta_hat <- ols(sim_y, sim_x)[2, ]
   beta_tilde <- mean(sim_y)/mean(sim_x)
-  beta_mat3[i, ] <- matrix(c(beta_hat, beta_tilde), ncol = 2)
+  beta_mat3[, i] <- matrix(c(beta_hat, beta_tilde), nrow = 2)
 }
 
 #### Q14. ####
-var1 <-  var(beta_mat3[, 1])
-var2 <-  var(beta_mat3[, 2])
+var1 <-  var(beta_mat3[1, ])
+var2 <-  var(beta_mat3[2, ])
 
 #### Q15. ####
 

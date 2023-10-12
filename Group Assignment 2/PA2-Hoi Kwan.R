@@ -47,6 +47,7 @@ delta1 <- reg2$coefficients[[2]]
 set.seed(123)
 b0 = 1 # Population intercept
 b1 = -3 # Population slope
+x <- rnorm(526, 5, 4)
 
 #OLS function
 ols<-function(y,x){
@@ -60,11 +61,35 @@ ols<-function(y,x){
 beta<-matrix(0,2,1000)
 for (i in 1:1000){
   set.seed(i)
-  x <-rnorm(526,5,4)
+  # x <-rnorm(526,5,4)
   u = rnorm(526,0,0.5)
   y = b0 + b1*x + u
   beta[,i]<-ols(y,x)
 }
+
+
+ols1 <- function(y, x) {
+  reg <- lm(y ~ x)
+  coef0 <- reg$coefficients[[1]]
+  coef1 <- reg$coefficients[[2]]
+  coef <- as.matrix(c(coef0, coef1), nrow = 2)
+  return(coef)
+}
+
+# Computing 1000 realisations of OLS coefficients
+beta_mat1 <- matrix(0, nrow = 2, 1000)
+
+for (i in 1:1000) {
+  set.seed(i)
+  u = rnorm(526, 0, 0.5)
+  y = b0 + b1*x + u
+  beta_mat1[, i] <- ols1(y, x)
+}
+
+mean(beta[2, ])
+mean(beta_mat1[2, ])
+var(beta[2, ])
+var(beta_mat1[2, ])
 
 #### Q9. ####
 x <-  Data$educ
