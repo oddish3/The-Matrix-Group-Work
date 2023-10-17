@@ -26,8 +26,7 @@ reg1 <-  lm(y ~ x2 +x3)
 R2 <-  summary(reg1)$r.squared
 
 #### Q4. ####
-rho_y2 <-  cov(y,x2)/(sqrt(var(y)*var(x2)))
-
+rho_y2 <- cor(y, x2)
 
 #### Q5. ####
 reg2 <-  lm(y ~ x2)
