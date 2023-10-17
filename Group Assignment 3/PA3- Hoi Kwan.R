@@ -4,7 +4,7 @@
 rm(list = ls())
 
 # Set working directory
- setwd("/Users/hoikwan/Documents/University /MSc/Modules/ECON61001 Econometric Methods/Assessment/Problem Assignments/PA3")
+ #setwd("/Users/hoikwan/Documents/University /MSc/Modules/ECON61001 Econometric Methods/Assessment/Problem Assignments/PA3")
 
 #### Q1. ####
 Data <- read.csv("wage.csv") 
