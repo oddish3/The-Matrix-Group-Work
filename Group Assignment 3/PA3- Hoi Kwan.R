@@ -82,7 +82,7 @@ pv2 <- pt(t2, 522, lower.tail = TRUE)
 
 
 #### Q14. ####
-Ew_female2 = sum(reg4$coefficients*c(1,12,3,1))
+Ew_female = sum(reg4$coefficients*c(1,12,3,1))
 
 
 
