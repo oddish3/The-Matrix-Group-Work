@@ -90,7 +90,7 @@ t2 <-  as.numeric((mod2$coefficients["x4"] - (-2) )/(summary(mod2)$coefficients[
 
 cv2 <- qt(0.01, 522, lower.tail = TRUE)
 
-pv2 <- pt(t2, 522, lower.tail = TRUE)
+pv2 <- pt(t2, 522, lower.tail = FALSE)
 
 
 #### Q14. ####
