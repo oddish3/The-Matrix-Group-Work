@@ -65,23 +65,28 @@ rho_y34 <-  cor(e4,e34)
 
 
 #### Q10. ####
+regy34 <- lm(y ~ x3 + x4)
+reg234 <-lm(x2 ~ x3 + x4)
 
+ey34 <- regy34$residuals
+e234 <- reg234$residuals
 
-
+rho_234 <- cor(ey34, e234)
 
 #### Q11. ####
+rs2 <- (1 - rho_4*rho_4)*(1 - rho_y34*rho_y34)*(1- rho_234*rho_234)
 
 
 
 ##### Q12. ####
-t1 <-  (tstat = (mod2$coefficients["x4"])/(summary(mod2)$coefficients["x4","Std. Error"]))
+t1 <-  as.numeric((mod2$coefficients["x4"])/(summary(mod2)$coefficients["x4","Std. Error"]))
 
 cv1 <- qt(0.05, 522, lower.tail = FALSE )
 
-pv1 <- pt(t1, 522, lower.tail = TRUE )
+pv1 <- as.numeric(pt(t1, 522, lower.tail = TRUE ))
 
 ##### Q13. ####
-t2 <-  (tstat = (mod2$coefficients["x4"] - (-2) )/(summary(mod2)$coefficients["x4","Std. Error"]))
+t2 <-  as.numeric((mod2$coefficients["x4"] - (-2) )/(summary(mod2)$coefficients["x4","Std. Error"]))
 
 cv2 <- qt(0.01, 522, lower.tail = TRUE)
 
