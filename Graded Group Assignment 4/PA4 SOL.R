@@ -1,7 +1,7 @@
 # Group Programming assignment 4
 
 rm(list=ls())
-setwd("C:/R folder/tmp/myrepo/Graded Group Assignment 4")
+#setwd("C:/R folder/tmp/myrepo/Graded Group Assignment 4")
 
 #1 
 Data = read.csv("cons.csv")
