@@ -1,144 +1,131 @@
-# Group Programming assignment 4
+### Group Matrix ###
 
-rm(list=ls())
-#setwd("C:/R folder/tmp/myrepo/Graded Group Assignment 4")
+# Remove all variables and plots
+rm(list = ls())
 
-#1 
-Data = read.csv("cons.csv")
+# Set working directory
+setwd("C:/R folder/tmp/myrepo/Graded Group Assignment 4")
 
-#2
-ols <- function(y, x) {
-  reg <- lm(y ~ x)
-  coef0 <- reg$coefficients[[1]]
-  coef1 <- reg$coefficients[[2]]
-  coef <- as.matrix(c(coef0, coef1), nrow = 2)
-  return(coef)
+#### Q1. ####
+Data <-  read.csv("cons.csv")
+
+#### Q2. ####
+ols<-function(y,x){
+  ones <- rep(1,length(x))
+  X = matrix(c(ones, x), ncol = 2)
+  beta = solve(t(X) %*% X) %*% t(X) %*% as.matrix(y)
+  return(beta)
 }
 
-#3
+
+#### Q3. ####
 b0 = 0.42
 b1 = 0.95
 n = 198
-x = log(Data$di[-199])
+
+x =log(Data$di[-199])
 xT = log(Data$di[199])
 
 
-#4 
+#### Q4. #### unsure if this is correct
 
-# Computing 1000 realisations of OLS coefficients
-beta_mat1 <- matrix(0, nrow = 2, ncol = 1000)
-y = matrix(0, nrow = n, ncol = 1)
-residuals = matrix(0, nrow = n, ncol = 1)
-rss <- matrix(0, ncol = 1, nrow = 1000)
-var1 <- matrix(0, ncol = 1, nrow = 1000)
-w0 <- matrix(0, ncol = 1, nrow = 1000)
-w1 <- matrix(0, ncol = 1, nrow = 1000)
-w2 <- matrix(0, ncol = 1, nrow = 1000)
+w0 <- matrix(0,1000,1)
+w1 <- matrix(0,1000,1)
+w2 <- matrix(0,1000,1)
 
-for (i in 1:1000) {
-  set.seed(i) #a
-  u = rnorm(n, 0, 1) #b
-  y = b0 + b1*x + u #c
-  ols_result = ols(y, x)
-  beta_mat1[, i] <- ols_result #d
-  residuals = y - (b0 + b1*x)  # Calculate residuals
-  rss[i] = sum(residuals^2) #e
-  var1[i] = var(residuals)
-  w0[i] = exp(b0 + b1*xT + 0.5) #true forecast 
-  b0_ha = beta_mat1[1, i]
-  b1_ha = beta_mat1[2, i]
-  w1[i] = exp(b0_ha + b1_ha * xT) #naive forecast
-  w2[i] = exp(b0_ha + b1_ha * xT + 0.5 * var1[i]) #unbiased forecast 
-  }
-
-#5 - admittedly not very elegant
-biast = matrix(0, nrow = 2, ncol = 1000)
-
-for (j in 1:1000) {
-  biast[1, j] = sum(w1[j]-w0[j])
-  biast[2, j] = sum(w2[j]-w1[j])
+for(i in 1:1000){
+  set.seed(i)
+  u = rnorm(n, mean=0, sd = 1)
+  y = b0+b1*x+u
+  OLS = ols(y,x)
+  uhat = y- OLS[1] - OLS[2]*x
+  varu = sum(uhat^2)/(198-2)
+  
+  
+  w0[i] = exp(b0+b1*xT+0.5)
+  w1[i] = exp(OLS[1] + OLS[2]*xT)
+  w2[i] = exp(OLS[1] + OLS[2]*xT +0.5*varu)
 }
 
-bias = matrix(0, nrow = 2)
-bias[1,1] = 1/1000*sum(biast[1, j])
-bias[2,1] = 1/1000*sum(biast[2, j])
-bias
 
-#6
+#### Q5. #### 
+bias <- matrix(0,2,1)
+for(j in 1:1000){
+  bias[1] = 1/1000*sum(w1[j] - w0[j])
+  bias[2] = 1/1000*sum(w2[j] - w0[j]) #Sol's using w1 not w0 like in
+  # the PSet
+}
+
+#### Q6. ####
 y = Data$c
 ld = log(Data$di)
 ldT = log(388804.1)
 
-#7
-mod1 = lm(y ~ ld)
-summary(mod1)
-alpha_0 <- coef(mod1)[1] 
-alpha_1 <- coef(mod1)[2]
-yT <- alpha_0 + alpha_1 * ldT
-yT
-#q8
-sig <- sigma(mod1)^2
-sig
-#q9
-yN = exp(alpha_0 + alpha_1 * ldT) #naive
-yN
-#q10
-yUB = exp(b0_ha + b1_ha*ldT + 0.5 * var1[i])
-yUB
 
-#q11
-# Computing 1000000 realisations of OLS coefficients
-N = 100
-beta_mat1 <- matrix(0, nrow = 2, ncol = 10000)
-Y = matrix(0, nrow = N, ncol = 1)
-VAR1 <- matrix(0, ncol = 1, nrow = 10000)
-VAR2 <- matrix(0, ncol = 1, nrow = 10000)
-w0 <- matrix(0, ncol = 1, nrow = 10000)
-w1 <- matrix(0, ncol = 1, nrow = 10000)
-w2 <- matrix(0, ncol = 1, nrow = 10000)
-y1 = matrix(0, ncol = 1, nrow = 10000)
-y2 = matrix(0, ncol = 1, nrow = 10000)
 
-for (i in 1:10000) {
-  set.seed(i) #a
-  U = rnorm(N, 0, sqrt(10)) #b
-  X = rnorm(N, 5, 4) #c
-  Y = 1 - 3*X+U #d
-  ols_result = ols(Y, X)
-  beta_mat1[, i] <- ols_result #e
-  VAR1[i] = var(beta_mat1[1,])
-  VAR2[i] = var(beta_mat1[2,])
-  y1[i] = sqrt(VAR1[i])
-  y2[i] = sqrt(VAR2[i])
-  }
+#### Q7. ####
+mod1 <- lm(y ~ ld)
 
-#q12
+yT = sum(mod1$coefficients*c(1, ldT))
 
-N = 100
-beta_mat1 <- matrix(0, nrow = 2, ncol = 10000)
-Y = matrix(0, nrow = N, ncol = 1)
-VAR1 <- matrix(0, ncol = 1, nrow = 10000)
-VAR2 <- matrix(0, ncol = 1, nrow = 10000)
-w0 <- matrix(0, ncol = 1, nrow = 10000)
-w1 <- matrix(0, ncol = 1, nrow = 10000)
-w2 <- matrix(0, ncol = 1, nrow = 10000)
-y1 = matrix(0, ncol = 1, nrow = 10000)
-y2 = matrix(0, ncol = 1, nrow = 10000)
 
-for (i in 1:10000) {
-  set.seed(i) #a
-  U = rnorm(N, 0, sqrt(10)) #b
-  X = rnorm(N, 5, 4) #c
-  Y = 1 - 3*X+U #d
-  ols_result = ols(Y, X)
-  beta_mat1[, i] <- ols_result #e
-  VAR1[i] = var(beta_mat1[1,])
-  VAR2[i] = var(beta_mat1[2,])
-  z1[i] = sqrt(VAR1[i])
-  z2[i] = sqrt(VAR2[i])
+
+
+#### Q8. ####
+mod2 <-  lm(log(y) ~ ld)
+
+sig = summary(mod2)$sigma^2 
+
+
+#### Q9. ####
+yN <- exp(sum(mod2$coefficients*c(1, ldT)))
+
+
+
+#### Q10. ####
+yUB <-  exp(sum(mod2$coefficients*c(1,ldT) + 0.5*sig))
+
+
+
+#### Q11. #### Unsure if this is correct
+mc = 10000
+
+#(a)
+OLS0 <-  matrix(0,mc,1)
+OLS1 <-  matrix(0,mc,1)
+theoretical_var_int = matrix(0,mc,1)
+theoretical_var_slope = matrix(0,mc,1)
+
+for(i in 1:mc){
+  set.seed(i)
+  U = rnorm(n = 100, mean=0, sd=sqrt(10))
+  X = rnorm(n = 100, mean = 5, sd=sqrt(16))
+  Y = 1 - 3*X+U
+  OLS_ = ols(Y,X)
+  OLS0[i] = OLS_[1,]
+  OLS1[i] = OLS_[2,]
+  theoretical_var_int[i] <- 10 * (1/100 + mean(X)^2 / sum((X - mean(X))^2))
+  theoretical_var_slope[i] <- 10 / sum((X - mean(X))^2)
 }
+y1 <- (OLS0 - mean(OLS0)) / sqrt(theoretical_var_int)
+y2<- (OLS1 - mean(OLS1)) / sqrt(theoretical_var_slope)
+mean(y1) #tried using 
+mean(y2)
 
+##### Q12. ####
 
-
-
-
+z1 <-  matrix(0,mc,1)
+z2 <-  matrix(0,mc,1)
+for(i in 1:mc){
+  set.seed(i)
+  U = rnorm(n = 100, mean=0, sd=sqrt(10))
+  X = rnorm(n = 100, mean = 5, sd=sqrt(16))
+  Y = 1 - 3*X+U
+  OLS1 = ols(Y,X)
+  uhat = Y - 1 +3*X
+  sigmaNsqu = sum(uhat^2)/100-2
+  varOLS = sigmaNsqu*(t(X)*X)^-1 #unsure if this is correct
+  
+  z1[i,] = sqrt(varOLS[1])
+  z2[i,] = sqrt(varOLS[2])
+}
