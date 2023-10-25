@@ -42,7 +42,7 @@ for(i in 1:1000){
   varu = sum(uhat^2)/(199-2-1)
   
   w0[i] = exp(b0+b1*xT+0.5)
-  w1[i] = exp(OLS[1] + OLS[2]*xT +0.5)
+  w1[i] = exp(OLS[1] + OLS[2]*xT)
   w2[i] = exp(OLS[1] + OLS[2]*xT +0.5*varu)
 }
 
