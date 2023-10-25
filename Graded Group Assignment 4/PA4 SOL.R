@@ -87,3 +87,58 @@ yUB = exp(b0_ha + b1_ha*ldT + 0.5 * var1[i])
 yUB
 
 #q11
+# Computing 1000000 realisations of OLS coefficients
+N = 100
+beta_mat1 <- matrix(0, nrow = 2, ncol = 10000)
+Y = matrix(0, nrow = N, ncol = 1)
+VAR1 <- matrix(0, ncol = 1, nrow = 10000)
+VAR2 <- matrix(0, ncol = 1, nrow = 10000)
+w0 <- matrix(0, ncol = 1, nrow = 10000)
+w1 <- matrix(0, ncol = 1, nrow = 10000)
+w2 <- matrix(0, ncol = 1, nrow = 10000)
+y1 = matrix(0, ncol = 1, nrow = 10000)
+y2 = matrix(0, ncol = 1, nrow = 10000)
+
+for (i in 1:10000) {
+  set.seed(i) #a
+  U = rnorm(N, 0, sqrt(10)) #b
+  X = rnorm(N, 5, 4) #c
+  Y = 1 - 3*X+U #d
+  ols_result = ols(Y, X)
+  beta_mat1[, i] <- ols_result #e
+  VAR1[i] = var(beta_mat1[1,])
+  VAR2[i] = var(beta_mat1[2,])
+  y1[i] = sqrt(VAR1[i])
+  y2[i] = sqrt(VAR2[i])
+  }
+
+#q12
+
+N = 100
+beta_mat1 <- matrix(0, nrow = 2, ncol = 10000)
+Y = matrix(0, nrow = N, ncol = 1)
+VAR1 <- matrix(0, ncol = 1, nrow = 10000)
+VAR2 <- matrix(0, ncol = 1, nrow = 10000)
+w0 <- matrix(0, ncol = 1, nrow = 10000)
+w1 <- matrix(0, ncol = 1, nrow = 10000)
+w2 <- matrix(0, ncol = 1, nrow = 10000)
+y1 = matrix(0, ncol = 1, nrow = 10000)
+y2 = matrix(0, ncol = 1, nrow = 10000)
+
+for (i in 1:10000) {
+  set.seed(i) #a
+  U = rnorm(N, 0, sqrt(10)) #b
+  X = rnorm(N, 5, 4) #c
+  Y = 1 - 3*X+U #d
+  ols_result = ols(Y, X)
+  beta_mat1[, i] <- ols_result #e
+  VAR1[i] = var(beta_mat1[1,])
+  VAR2[i] = var(beta_mat1[2,])
+  z1[i] = sqrt(VAR1[i])
+  z2[i] = sqrt(VAR2[i])
+}
+
+
+
+
+
