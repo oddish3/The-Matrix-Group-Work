@@ -39,7 +39,8 @@ for(i in 1:1000){
   y = b0+b1*x+u
   OLS = ols(y,x)
   uhat = y- OLS[1] - OLS[2]*x
-  varu = sum(uhat^2)/(199-2-1)
+  varu = sum(uhat^2)/(198-2)
+
   
   w0[i] = exp(b0+b1*xT+0.5)
   w1[i] = exp(OLS[1] + OLS[2]*xT)
