@@ -68,7 +68,7 @@ yT = sum(mod1$coefficients*c(1, ldT))
 
 #### Q8. ####
 mod2 <-  lm(log(y) ~ ld)
-sig <- var(mod2[["residuals"]])
+sig = summary(mod2)$sigma^2
 
 #### Q9. ####
 yN <- exp(sum(mod2$coefficients*c(1, ldT)))
