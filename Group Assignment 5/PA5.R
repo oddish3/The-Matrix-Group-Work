@@ -1,6 +1,7 @@
 ## PA5
 rm(list=ls())
-## 1
+
+#### Q1. ####
 
 # Number of realizations
 T <- 500
