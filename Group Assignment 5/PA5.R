@@ -27,7 +27,8 @@ for (i in 1:T) {
   u[i] <- u[T]
 }
 
-## 2
+#### Q2. ####
+# install.packages("tseries")
 library(tseries) 
 # Number of realizations
 T <- 500
@@ -53,7 +54,7 @@ for (i in 1:T) {
   v[i] <- v[T]
 }
 
-## 3
+#### Q3. ####
 
 # Perform the Dickey-Fuller test on ut
 adf_ut <- adf.test(u)
@@ -68,7 +69,7 @@ adf_vt <- adf.test(v)
 pv <- adf_vt$p.value
 
 
-## 4
+#### Q4. ####
 
 # Load the USeconomic data
 data("USeconomic")
@@ -76,7 +77,7 @@ data("USeconomic")
 # Save the length of the GNP series
 TGNP <- length(GNP)
 
-## 5 
+#### Q5. ####
 
 # Perform the Dickey-Fuller test on the GNP series
 adf_gnp <- adf.test(GNP)
@@ -85,12 +86,11 @@ adf_gnp <- adf.test(GNP)
 p1 <- adf_gnp$p.value
 
 
-## 6 
+#### Q6. ####
 # Compute the first difference of the GNP
 dGNP <- diff(GNP)
 
-## 7
-
+#### Q7. ####
 # Perform the ADF test on the first difference of the GNP series
 adf_dGNP <- adf.test(dGNP)
 
