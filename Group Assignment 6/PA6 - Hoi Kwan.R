@@ -19,10 +19,6 @@ n0 <- nrow(Y)
 
 
 #### Q4 ####
-
-#X <- model.matrix( ~ . -lwage,data=df)
-#- alternative method without using as.matrix (do not use in final)
-
 # Add intercept column
 intercept <-  rep(1,428)
 df <- cbind(intercept, df) #run this only once -should be 13 variables in 'df' 
