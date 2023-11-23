@@ -15,15 +15,10 @@ n0 <- nrow(Y)
 
 
 #### Q4 ####
-# Add intercept column
 intercept <-  rep(1,428)
-df <- cbind(intercept, df) #run this only once -should be 13 variables in 'df' 
+x <- as.matrix(df[, -1])
 
-
-#X matrix
-X <- as.matrix(df[,-2]) #(-2) includes all except the 2nd column which is 'lwage'
-
-
+X <- cbind(intercept, x)
 
 #### Q5 ####
 #define OLS formula
@@ -34,7 +29,6 @@ ols <- function(y,x){
 
 # OLS Coefficients
 b0 <- ols(Y,X) 
-
 
 ### Q6 ####
 nz0 <- sum(abs(b0) > 0.01)
