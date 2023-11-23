@@ -1,10 +1,6 @@
 #### Group Matrix #####
 
-rm(list = ls()) # clean the global environment
-
-
-# Set working directory
-#setwd("/Users/hoikwan/Documents/University /MSc/Modules/ECON61001 Econometric Methods/Assessment/Problem Assignments/PA6")
+rm(list = ls())
 
 ### Q1 ####
 df <- read.csv("mroz_subset.csv")
