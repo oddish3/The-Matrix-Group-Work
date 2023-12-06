@@ -160,7 +160,3 @@ for (i in 1:reps){
 ols4 = mean(beta_ols_results - b)
 sls4 = mean(beta_2sls_results - b)
 m4 = mean(mu_results)
-
-rm(list=ls())
-source("PA8 - SOL.r")
-
